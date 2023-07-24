@@ -1,1 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>URL Shortener</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>URL Shortener</h1>
+    {% for message in get_flashed_messages() %}
+    <h2>{{message}}</h2>
+    {% endfor %}
+    <form action="your-url" method="post">
+        <label for="url">Website URL</label>
+        <input type="url" name="url" value="" required>
+        <br>
+        <label for="code">Short Name</label>
+        <input type="text" name="code" value="" required>
+        <br>
+        <input type="submit" value="Shorten">
+    </form>
+<br>
+    <form action="your-url" method="post" enctype="multipart/form-data">
+        <label for="file">File</label>
+        <input type="file" name="file" value="" required>
+        <br>
+        <label for="code">Short Name</label>
+        <input type="text" name="code" value="" required>
+        <br>
+        <input type="submit" value="Shorten">
+    </form>
+</body>
+</html>
 
+{% if codes %}
+<h1>Codes you have created</h1>
+<ul>
+    {% for code in codes %}
+    <h2><a href="{{url_for('redirect_to_url', code=code)}}"></h2>
+    <h2><ul>{{code}}</ul></h2>
+    {% endfor %}
+</ul>
+{% endif %}
